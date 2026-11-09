@@ -1,0 +1,1261 @@
+{
+  "manifest_version": 1,
+  "type": "tts",
+  "name": "Google Cloud Text-to-Speech",
+  "description": {
+    "en": "Give Gladys a Google Cloud voice: Chirp 3 HD, Neural2, WaveNet, with your own API key.",
+    "fr": "Une voix Google Cloud pour Gladys : Chirp 3 HD, Neural2, WaveNet, avec votre clé d’API.",
+    "de": "Eine Google-Cloud-Stimme für Gladys: Chirp 3 HD, Neural2, WaveNet, mit deinem API-Schlüssel.",
+    "es": "Una voz de Google Cloud para Gladys: Chirp 3 HD, Neural2, WaveNet, con su clave de API."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-google-cloud-tts:0.1.0",
+  "gladys_version": ">=5.3.0",
+  "categories": ["assistants"],
+  "keywords": [
+    "google",
+    "google cloud",
+    "tts",
+    "text-to-speech",
+    "chirp",
+    "wavenet",
+    "neural2",
+    "synthèse vocale",
+    "voix",
+    "stimme"
+  ],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-google-cloud-tts/main/cover.jpg",
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
+      },
+      "description": {
+        "en": "In the Google Cloud console: create a project, link a billing account to it (required even within the free allowance), enable the Cloud Text-to-Speech API, then create an API key restricted to that API and paste it below. Then select this integration as the voice in Settings, Artificial Intelligence.",
+        "fr": "Dans la console Google Cloud : créez un projet, associez-lui un compte de facturation (obligatoire même dans la franchise gratuite), activez l’API Cloud Text-to-Speech, puis créez une clé d’API restreinte à cette API et collez-la ci-dessous. Choisissez ensuite cette intégration comme voix dans Paramètres, Intelligence artificielle.",
+        "de": "In der Google-Cloud-Konsole: Erstelle ein Projekt, verknüpfe ein Rechnungskonto damit (auch innerhalb des kostenlosen Kontingents nötig), aktiviere die Cloud Text-to-Speech API, erstelle dann einen auf diese API beschränkten API-Schlüssel und füge ihn unten ein. Wähle diese Integration anschließend als Stimme unter Einstellungen, Künstliche Intelligenz.",
+        "es": "En la consola de Google Cloud: cree un proyecto, vincúlele una cuenta de facturación (obligatoria incluso dentro de la cuota gratuita), habilite la API Cloud Text-to-Speech y luego cree una clave de API restringida a esa API y péguela abajo. Después elija esta integración como voz en Ajustes, Inteligencia artificial."
+      },
+      "links": [
+        {
+          "url": "https://console.cloud.google.com/apis/library/texttospeech.googleapis.com",
+          "label": {
+            "en": "Enable the API",
+            "fr": "Activer l’API",
+            "de": "API aktivieren",
+            "es": "Habilitar la API"
+          }
+        },
+        {
+          "url": "https://console.cloud.google.com/apis/credentials",
+          "label": {
+            "en": "API keys",
+            "fr": "Clés d’API",
+            "de": "API-Schlüssel",
+            "es": "Claves de API"
+          }
+        },
+        {
+          "url": "https://github.com/William-De71/gladys-google-cloud-tts/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l’intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "costs",
+      "type": "section",
+      "label": {
+        "en": "Costs and privacy",
+        "fr": "Coûts et confidentialité",
+        "de": "Kosten und Datenschutz",
+        "es": "Costes y privacidad"
+      },
+      "description": {
+        "en": "Google bills every character spoken, spaces included, each month: Chirp 3 HD, Neural2 and Studio include 1 million free characters, WaveNet and Standard 4 million together. The integration stops at the monthly limit below (95 % of the free allowance by default) and does not bill a sentence already spoken again. Every text read aloud goes to Google.",
+        "fr": "Google facture chaque caractère prononcé, espaces compris, chaque mois : Chirp 3 HD, Neural2 et Studio offrent 1 million de caractères, WaveNet et Standard 4 millions à eux deux. L’intégration s’arrête au plafond mensuel ci-dessous (95 % de la franchise gratuite par défaut) et ne refait pas payer une phrase déjà prononcée. Chaque texte lu part chez Google.",
+        "de": "Google berechnet jedes gesprochene Zeichen, Leerzeichen inklusive, pro Monat: Chirp 3 HD, Neural2 und Studio enthalten 1 Million kostenlose Zeichen, WaveNet und Standard zusammen 4 Millionen. Die Integration stoppt am Monatslimit unten (standardmäßig 95 % des kostenlosen Kontingents) und berechnet einen schon gesprochenen Satz nicht erneut. Jeder vorgelesene Text geht an Google.",
+        "es": "Google factura cada carácter pronunciado, espacios incluidos, cada mes: Chirp 3 HD, Neural2 y Studio incluyen 1 millón de caracteres gratuitos, WaveNet y Standard 4 millones entre los dos. La integración se detiene en el límite mensual de abajo (95 % de la cuota gratuita por defecto) y no vuelve a facturar una frase ya pronunciada. Cada texto leído se envía a Google."
+      },
+      "links": [
+        {
+          "url": "https://cloud.google.com/text-to-speech/pricing",
+          "label": {
+            "en": "Pricing",
+            "fr": "Tarifs",
+            "de": "Preise",
+            "es": "Precios"
+          }
+        }
+      ]
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "label": {
+        "en": "API key",
+        "fr": "Clé d’API",
+        "de": "API-Schlüssel",
+        "es": "Clave de API"
+      },
+      "placeholder": {
+        "en": "AIza…",
+        "fr": "AIza…",
+        "de": "AIza…",
+        "es": "AIza…"
+      },
+      "required": true
+    },
+    {
+      "key": "voice_section",
+      "type": "section",
+      "label": {
+        "en": "Voice",
+        "fr": "Voix",
+        "de": "Stimme",
+        "es": "Voz"
+      },
+      "description": {
+        "en": "Gladys gives the language of the user: the integration picks a voice of the chosen family and gender in that language, always the same one. To choose a precise voice, type its name below; the “List the voices” button shows them.",
+        "fr": "Gladys donne la langue de l’utilisateur : l’intégration choisit une voix de la famille et du genre choisis dans cette langue, toujours la même. Pour une voix précise, saisissez son nom ci-dessous ; le bouton « Lister les voix » les affiche.",
+        "de": "Gladys gibt die Sprache des Benutzers an: Die Integration wählt eine Stimme der gewählten Familie und des gewählten Geschlechts in dieser Sprache, immer dieselbe. Für eine bestimmte Stimme gib ihren Namen unten ein; die Schaltfläche „Stimmen auflisten“ zeigt sie an.",
+        "es": "Gladys indica el idioma del usuario: la integración elige una voz de la familia y del género elegidos en ese idioma, siempre la misma. Para una voz concreta, escriba su nombre abajo; el botón «Listar las voces» las muestra."
+      }
+    },
+    {
+      "key": "family",
+      "type": "select",
+      "label": {
+        "en": "Voice family",
+        "fr": "Famille de voix",
+        "de": "Stimmenfamilie",
+        "es": "Familia de voces"
+      },
+      "description": {
+        "en": "When the family has no voice for a language, Chirp 3 HD, Neural2, WaveNet then Standard are tried.",
+        "fr": "Si la famille n’a pas de voix pour une langue, Chirp 3 HD, Neural2, WaveNet puis Standard sont essayées.",
+        "de": "Hat die Familie keine Stimme für eine Sprache, werden Chirp 3 HD, Neural2, WaveNet und dann Standard versucht.",
+        "es": "Si la familia no tiene voz para un idioma, se prueban Chirp 3 HD, Neural2, WaveNet y luego Standard."
+      },
+      "options": [
+        {
+          "value": "chirp3-hd",
+          "label": {
+            "en": "Chirp 3 HD: most natural (1 M free, then $30 / M)",
+            "fr": "Chirp 3 HD : la plus naturelle (1 M offert, puis 30 $ / M)",
+            "de": "Chirp 3 HD: am natürlichsten (1 Mio. gratis, dann 30 $ / Mio.)",
+            "es": "Chirp 3 HD: la más natural (1 M gratis, luego 30 $ / M)"
+          }
+        },
+        {
+          "value": "neural2",
+          "label": {
+            "en": "Neural2 (1 M free, then $16 / M)",
+            "fr": "Neural2 (1 M offert, puis 16 $ / M)",
+            "de": "Neural2 (1 Mio. gratis, dann 16 $ / Mio.)",
+            "es": "Neural2 (1 M gratis, luego 16 $ / M)"
+          }
+        },
+        {
+          "value": "wavenet",
+          "label": {
+            "en": "WaveNet (4 M free, then $4 / M)",
+            "fr": "WaveNet (4 M offerts, puis 4 $ / M)",
+            "de": "WaveNet (4 Mio. gratis, dann 4 $ / Mio.)",
+            "es": "WaveNet (4 M gratis, luego 4 $ / M)"
+          }
+        },
+        {
+          "value": "standard",
+          "label": {
+            "en": "Standard: robotic (4 M free, then $4 / M)",
+            "fr": "Standard : robotique (4 M offerts, puis 4 $ / M)",
+            "de": "Standard: roboterhaft (4 Mio. gratis, dann 4 $ / Mio.)",
+            "es": "Standard: robótica (4 M gratis, luego 4 $ / M)"
+          }
+        },
+        {
+          "value": "studio",
+          "label": {
+            "en": "Studio: narration, few languages (1 M free, then $160 / M)",
+            "fr": "Studio : narration, peu de langues (1 M offert, puis 160 $ / M)",
+            "de": "Studio: Erzählung, wenige Sprachen (1 Mio. gratis, dann 160 $ / Mio.)",
+            "es": "Studio: narración, pocos idiomas (1 M gratis, luego 160 $ / M)"
+          }
+        },
+        {
+          "value": "polyglot",
+          "label": {
+            "en": "Polyglot: preview, few languages (1 M free, then $16 / M)",
+            "fr": "Polyglot : préversion, peu de langues (1 M offert, puis 16 $ / M)",
+            "de": "Polyglot: Vorschau, wenige Sprachen (1 Mio. gratis, dann 16 $ / Mio.)",
+            "es": "Polyglot: versión preliminar, pocos idiomas (1 M gratis, luego 16 $ / M)"
+          }
+        }
+      ],
+      "default": "chirp3-hd"
+    },
+    {
+      "key": "gender",
+      "type": "select",
+      "label": {
+        "en": "Voice gender",
+        "fr": "Genre de la voix",
+        "de": "Geschlecht der Stimme",
+        "es": "Género de la voz"
+      },
+      "options": [
+        {
+          "value": "female",
+          "label": {
+            "en": "Female",
+            "fr": "Féminine",
+            "de": "Weiblich",
+            "es": "Femenina"
+          }
+        },
+        {
+          "value": "male",
+          "label": {
+            "en": "Male",
+            "fr": "Masculine",
+            "de": "Männlich",
+            "es": "Masculina"
+          }
+        }
+      ],
+      "default": "female"
+    },
+    {
+      "key": "voices",
+      "type": "string",
+      "label": {
+        "en": "Voices by name (optional)",
+        "fr": "Voix par nom (facultatif)",
+        "de": "Stimmen nach Name (optional)",
+        "es": "Voces por nombre (opcional)"
+      },
+      "description": {
+        "en": "One voice per language at most, separated by commas. It replaces the automatic choice for its language, also its region (fr-CA, en-GB).",
+        "fr": "Une voix par langue au plus, séparées par des virgules. Elle remplace le choix automatique pour sa langue, y compris sa région (fr-CA, en-GB).",
+        "de": "Höchstens eine Stimme pro Sprache, durch Kommas getrennt. Sie ersetzt die automatische Wahl für ihre Sprache, auch deren Region (fr-CA, en-GB).",
+        "es": "Una voz por idioma como máximo, separadas por comas. Sustituye la elección automática para su idioma, incluida su región (fr-CA, en-GB)."
+      },
+      "placeholder": {
+        "en": "fr-FR-Chirp3-HD-Charon, en-GB-Neural2-B",
+        "fr": "fr-FR-Chirp3-HD-Charon, en-GB-Neural2-B",
+        "de": "fr-FR-Chirp3-HD-Charon, en-GB-Neural2-B",
+        "es": "fr-FR-Chirp3-HD-Charon, en-GB-Neural2-B"
+      },
+      "required": false,
+      "default": ""
+    },
+    {
+      "key": "fallback_language",
+      "type": "select",
+      "label": {
+        "en": "Language when unknown",
+        "fr": "Langue si inconnue",
+        "de": "Sprache, wenn unbekannt",
+        "es": "Idioma si se desconoce"
+      },
+      "description": {
+        "en": "Spoken when Gladys does not say the language of the text (rare).",
+        "fr": "Parlée quand Gladys ne précise pas la langue du texte (rare).",
+        "de": "Gesprochen, wenn Gladys die Sprache des Textes nicht angibt (selten).",
+        "es": "Hablado cuando Gladys no indica el idioma del texto (poco frecuente)."
+      },
+      "options": [
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "Anglais",
+            "de": "Englisch",
+            "es": "Inglés"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "French",
+            "fr": "Français",
+            "de": "Französisch",
+            "es": "Francés"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "German",
+            "fr": "Allemand",
+            "de": "Deutsch",
+            "es": "Alemán"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Spanish",
+            "fr": "Espagnol",
+            "de": "Spanisch",
+            "es": "Español"
+          }
+        },
+        {
+          "value": "it",
+          "label": {
+            "en": "Italian",
+            "fr": "Italien",
+            "de": "Italienisch",
+            "es": "Italiano"
+          }
+        },
+        {
+          "value": "nl",
+          "label": {
+            "en": "Dutch",
+            "fr": "Néerlandais",
+            "de": "Niederländisch",
+            "es": "Neerlandés"
+          }
+        },
+        {
+          "value": "pt",
+          "label": {
+            "en": "Portuguese",
+            "fr": "Portugais",
+            "de": "Portugiesisch",
+            "es": "Portugués"
+          }
+        }
+      ],
+      "default": "en"
+    },
+    {
+      "key": "sound_section",
+      "type": "section",
+      "label": {
+        "en": "Sound",
+        "fr": "Son",
+        "de": "Klang",
+        "es": "Sonido"
+      }
+    },
+    {
+      "key": "speaking_rate",
+      "type": "select",
+      "label": {
+        "en": "Speed",
+        "fr": "Vitesse",
+        "de": "Geschwindigkeit",
+        "es": "Velocidad"
+      },
+      "options": [
+        {
+          "value": "0.75",
+          "label": {
+            "en": "0.75×",
+            "fr": "0,75×",
+            "de": "0,75×",
+            "es": "0,75×"
+          }
+        },
+        {
+          "value": "0.85",
+          "label": {
+            "en": "0.85×",
+            "fr": "0,85×",
+            "de": "0,85×",
+            "es": "0,85×"
+          }
+        },
+        {
+          "value": "0.9",
+          "label": {
+            "en": "0.9×",
+            "fr": "0,9×",
+            "de": "0,9×",
+            "es": "0,9×"
+          }
+        },
+        {
+          "value": "1",
+          "label": {
+            "en": "1× (normal)",
+            "fr": "1× (normale)",
+            "de": "1× (normal)",
+            "es": "1× (normal)"
+          }
+        },
+        {
+          "value": "1.1",
+          "label": {
+            "en": "1.1×",
+            "fr": "1,1×",
+            "de": "1,1×",
+            "es": "1,1×"
+          }
+        },
+        {
+          "value": "1.15",
+          "label": {
+            "en": "1.15×",
+            "fr": "1,15×",
+            "de": "1,15×",
+            "es": "1,15×"
+          }
+        },
+        {
+          "value": "1.25",
+          "label": {
+            "en": "1.25×",
+            "fr": "1,25×",
+            "de": "1,25×",
+            "es": "1,25×"
+          }
+        },
+        {
+          "value": "1.5",
+          "label": {
+            "en": "1.5×",
+            "fr": "1,5×",
+            "de": "1,5×",
+            "es": "1,5×"
+          }
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "key": "pitch",
+      "type": "select",
+      "label": {
+        "en": "Pitch",
+        "fr": "Hauteur",
+        "de": "Tonhöhe",
+        "es": "Tono"
+      },
+      "description": {
+        "en": "In semitones. Chirp 3 HD and Studio voices ignore it.",
+        "fr": "En demi-tons. Les voix Chirp 3 HD et Studio l’ignorent.",
+        "de": "In Halbtönen. Chirp-3-HD- und Studio-Stimmen ignorieren sie.",
+        "es": "En semitonos. Las voces Chirp 3 HD y Studio lo ignoran."
+      },
+      "options": [
+        {
+          "value": "-6",
+          "label": {
+            "en": "-6",
+            "fr": "-6",
+            "de": "-6",
+            "es": "-6"
+          }
+        },
+        {
+          "value": "-4",
+          "label": {
+            "en": "-4",
+            "fr": "-4",
+            "de": "-4",
+            "es": "-4"
+          }
+        },
+        {
+          "value": "-2",
+          "label": {
+            "en": "-2",
+            "fr": "-2",
+            "de": "-2",
+            "es": "-2"
+          }
+        },
+        {
+          "value": "0",
+          "label": {
+            "en": "0 (normal)",
+            "fr": "0 (normale)",
+            "de": "0 (normal)",
+            "es": "0 (normal)"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "+2",
+            "fr": "+2",
+            "de": "+2",
+            "es": "+2"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "en": "+4",
+            "fr": "+4",
+            "de": "+4",
+            "es": "+4"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "en": "+6",
+            "fr": "+6",
+            "de": "+6",
+            "es": "+6"
+          }
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "key": "volume_gain_db",
+      "type": "select",
+      "label": {
+        "en": "Volume gain",
+        "fr": "Gain de volume",
+        "de": "Lautstärkeanhebung",
+        "es": "Ganancia de volumen"
+      },
+      "options": [
+        {
+          "value": "-6",
+          "label": {
+            "en": "-6 dB",
+            "fr": "-6 dB",
+            "de": "-6 dB",
+            "es": "-6 dB"
+          }
+        },
+        {
+          "value": "-3",
+          "label": {
+            "en": "-3 dB",
+            "fr": "-3 dB",
+            "de": "-3 dB",
+            "es": "-3 dB"
+          }
+        },
+        {
+          "value": "0",
+          "label": {
+            "en": "0 dB (normal)",
+            "fr": "0 dB (normal)",
+            "de": "0 dB (normal)",
+            "es": "0 dB (normal)"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "en": "+3 dB",
+            "fr": "+3 dB",
+            "de": "+3 dB",
+            "es": "+3 dB"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "en": "+6 dB",
+            "fr": "+6 dB",
+            "de": "+6 dB",
+            "es": "+6 dB"
+          }
+        }
+      ],
+      "default": "0"
+    },
+    {
+      "key": "effects_profile",
+      "type": "select",
+      "label": {
+        "en": "Tuned for",
+        "fr": "Optimisée pour",
+        "de": "Optimiert für",
+        "es": "Optimizada para"
+      },
+      "description": {
+        "en": "Google adjusts the sound to the device that plays it.",
+        "fr": "Google ajuste le son à l’appareil qui le joue.",
+        "de": "Google passt den Klang an das Gerät an, das ihn abspielt.",
+        "es": "Google ajusta el sonido al dispositivo que lo reproduce."
+      },
+      "options": [
+        {
+          "value": "none",
+          "label": {
+            "en": "Nothing in particular",
+            "fr": "Rien de particulier",
+            "de": "Nichts Bestimmtes",
+            "es": "Nada en particular"
+          }
+        },
+        {
+          "value": "small-bluetooth-speaker-class-device",
+          "label": {
+            "en": "Small speaker",
+            "fr": "Petite enceinte",
+            "de": "Kleiner Lautsprecher",
+            "es": "Altavoz pequeño"
+          }
+        },
+        {
+          "value": "medium-bluetooth-speaker-class-device",
+          "label": {
+            "en": "Smart speaker",
+            "fr": "Enceinte connectée",
+            "de": "Smart Speaker",
+            "es": "Altavoz inteligente"
+          }
+        },
+        {
+          "value": "large-home-entertainment-class-device",
+          "label": {
+            "en": "Hi-fi or TV",
+            "fr": "Chaîne hi-fi ou TV",
+            "de": "HiFi-Anlage oder TV",
+            "es": "Equipo de alta fidelidad o TV"
+          }
+        },
+        {
+          "value": "headphone-class-device",
+          "label": {
+            "en": "Headphones",
+            "fr": "Casque",
+            "de": "Kopfhörer",
+            "es": "Auriculares"
+          }
+        },
+        {
+          "value": "handset-class-device",
+          "label": {
+            "en": "Phone",
+            "fr": "Téléphone",
+            "de": "Telefon",
+            "es": "Teléfono"
+          }
+        },
+        {
+          "value": "wearable-class-device",
+          "label": {
+            "en": "Watch",
+            "fr": "Montre",
+            "de": "Uhr",
+            "es": "Reloj"
+          }
+        },
+        {
+          "value": "large-automotive-class-device",
+          "label": {
+            "en": "Car",
+            "fr": "Voiture",
+            "de": "Auto",
+            "es": "Coche"
+          }
+        },
+        {
+          "value": "telephony-class-application",
+          "label": {
+            "en": "Phone call",
+            "fr": "Appel téléphonique",
+            "de": "Telefonanruf",
+            "es": "Llamada telefónica"
+          }
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "key": "audio_format",
+      "type": "select",
+      "label": {
+        "en": "Audio format",
+        "fr": "Format audio",
+        "de": "Audioformat",
+        "es": "Formato de audio"
+      },
+      "options": [
+        {
+          "value": "mp3",
+          "label": {
+            "en": "MP3 (every speaker)",
+            "fr": "MP3 (toutes les enceintes)",
+            "de": "MP3 (alle Lautsprecher)",
+            "es": "MP3 (todos los altavoces)"
+          }
+        },
+        {
+          "value": "ogg",
+          "label": {
+            "en": "Ogg Opus (better sound, not every speaker)",
+            "fr": "Ogg Opus (meilleur son, pas toutes les enceintes)",
+            "de": "Ogg Opus (besserer Klang, nicht alle Lautsprecher)",
+            "es": "Ogg Opus (mejor sonido, no todos los altavoces)"
+          }
+        },
+        {
+          "value": "wav",
+          "label": {
+            "en": "WAV (uncompressed, short texts)",
+            "fr": "WAV (non compressé, textes courts)",
+            "de": "WAV (unkomprimiert, kurze Texte)",
+            "es": "WAV (sin comprimir, textos cortos)"
+          }
+        }
+      ],
+      "default": "mp3"
+    },
+    {
+      "key": "monthly_limit",
+      "type": "number",
+      "label": {
+        "en": "Monthly limit (characters)",
+        "fr": "Plafond mensuel (caractères)",
+        "de": "Monatslimit (Zeichen)",
+        "es": "Límite mensual (caracteres)"
+      },
+      "description": {
+        "en": "0: 95 % of the free allowance of the family. Beyond it, clips are refused until the 1st of next month (Pacific time, like Google bills).",
+        "fr": "0 : 95 % de la franchise gratuite de la famille. Au-delà, les clips sont refusés jusqu’au 1er du mois suivant (heure du Pacifique, comme la facture Google).",
+        "de": "0: 95 % des kostenlosen Kontingents der Familie. Darüber werden Clips bis zum 1. des Folgemonats abgelehnt (pazifische Zeit, wie Google abrechnet).",
+        "es": "0: 95 % de la cuota gratuita de la familia. Por encima, los clips se rechazan hasta el día 1 del mes siguiente (hora del Pacífico, como factura Google)."
+      },
+      "required": false,
+      "default": 0,
+      "min": 0,
+      "max": 100000000
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_voice",
+      "timeout_seconds": 40,
+      "label": {
+        "en": "Test the voice",
+        "fr": "Tester la voix",
+        "de": "Stimme testen",
+        "es": "Probar la voz"
+      },
+      "description": {
+        "en": "Speaks a short sentence with the chosen voice and shows the voice, the time and the characters of the month. Bills about 60 characters.",
+        "fr": "Fait prononcer une courte phrase à la voix choisie et affiche la voix, le temps et les caractères du mois. Consomme environ 60 caractères.",
+        "de": "Lässt die gewählte Stimme einen kurzen Satz sprechen und zeigt Stimme, Dauer und die Zeichen des Monats an. Verbraucht etwa 60 Zeichen.",
+        "es": "Hace pronunciar una frase corta a la voz elegida y muestra la voz, el tiempo y los caracteres del mes. Consume unos 60 caracteres."
+      },
+      "fields": [
+        {
+          "key": "language",
+          "type": "select",
+          "required": false,
+          "label": {
+            "en": "Language",
+            "fr": "Langue",
+            "de": "Sprache",
+            "es": "Idioma"
+          },
+          "options": [
+            {
+              "value": "en",
+              "label": {
+                "en": "English",
+                "fr": "Anglais",
+                "de": "Englisch",
+                "es": "Inglés"
+              }
+            },
+            {
+              "value": "fr",
+              "label": {
+                "en": "French",
+                "fr": "Français",
+                "de": "Französisch",
+                "es": "Francés"
+              }
+            },
+            {
+              "value": "de",
+              "label": {
+                "en": "German",
+                "fr": "Allemand",
+                "de": "Deutsch",
+                "es": "Alemán"
+              }
+            },
+            {
+              "value": "es",
+              "label": {
+                "en": "Spanish",
+                "fr": "Espagnol",
+                "de": "Spanisch",
+                "es": "Español"
+              }
+            },
+            {
+              "value": "it",
+              "label": {
+                "en": "Italian",
+                "fr": "Italien",
+                "de": "Italienisch",
+                "es": "Italiano"
+              }
+            },
+            {
+              "value": "nl",
+              "label": {
+                "en": "Dutch",
+                "fr": "Néerlandais",
+                "de": "Niederländisch",
+                "es": "Neerlandés"
+              }
+            },
+            {
+              "value": "pt",
+              "label": {
+                "en": "Portuguese",
+                "fr": "Portugais",
+                "de": "Portugiesisch",
+                "es": "Portugués"
+              }
+            }
+          ]
+        },
+        {
+          "key": "text",
+          "type": "string",
+          "required": false,
+          "label": {
+            "en": "Text (optional)",
+            "fr": "Texte (facultatif)",
+            "de": "Text (optional)",
+            "es": "Texto (opcional)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "list_voices",
+      "timeout_seconds": 30,
+      "label": {
+        "en": "List the voices",
+        "fr": "Lister les voix",
+        "de": "Stimmen auflisten",
+        "es": "Listar las voces"
+      },
+      "description": {
+        "en": "The voices of the chosen family for a language, to type one by name. Free.",
+        "fr": "Les voix de la famille choisie pour une langue, pour en saisir une par son nom. Gratuit.",
+        "de": "Die Stimmen der gewählten Familie für eine Sprache, um eine per Namen einzugeben. Kostenlos.",
+        "es": "Las voces de la familia elegida para un idioma, para escribir una por su nombre. Gratis."
+      },
+      "fields": [
+        {
+          "key": "language",
+          "type": "select",
+          "required": false,
+          "label": {
+            "en": "Language",
+            "fr": "Langue",
+            "de": "Sprache",
+            "es": "Idioma"
+          },
+          "options": [
+            {
+              "value": "en",
+              "label": {
+                "en": "English",
+                "fr": "Anglais",
+                "de": "Englisch",
+                "es": "Inglés"
+              }
+            },
+            {
+              "value": "fr",
+              "label": {
+                "en": "French",
+                "fr": "Français",
+                "de": "Französisch",
+                "es": "Francés"
+              }
+            },
+            {
+              "value": "de",
+              "label": {
+                "en": "German",
+                "fr": "Allemand",
+                "de": "Deutsch",
+                "es": "Alemán"
+              }
+            },
+            {
+              "value": "es",
+              "label": {
+                "en": "Spanish",
+                "fr": "Espagnol",
+                "de": "Spanisch",
+                "es": "Español"
+              }
+            },
+            {
+              "value": "it",
+              "label": {
+                "en": "Italian",
+                "fr": "Italien",
+                "de": "Italienisch",
+                "es": "Italiano"
+              }
+            },
+            {
+              "value": "nl",
+              "label": {
+                "en": "Dutch",
+                "fr": "Néerlandais",
+                "de": "Niederländisch",
+                "es": "Neerlandés"
+              }
+            },
+            {
+              "value": "pt",
+              "label": {
+                "en": "Portuguese",
+                "fr": "Portugais",
+                "de": "Portugiesisch",
+                "es": "Portugués"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "clear_cache",
+      "timeout_seconds": 15,
+      "label": {
+        "en": "Empty the clip cache",
+        "fr": "Vider le cache des clips",
+        "de": "Clip-Cache leeren",
+        "es": "Vaciar la caché de clips"
+      },
+      "description": {
+        "en": "Sentences already spoken are kept (300 at most) so they are not billed again. Empty it after a pronunciation change on Google’s side.",
+        "fr": "Les phrases déjà prononcées sont gardées (300 au plus) pour ne pas être refacturées. Videz-le après un changement de prononciation côté Google.",
+        "de": "Bereits gesprochene Sätze werden aufbewahrt (höchstens 300), damit sie nicht erneut berechnet werden. Leere ihn nach einer Ausspracheänderung bei Google.",
+        "es": "Las frases ya pronunciadas se guardan (300 como máximo) para no volver a facturarlas. Vacíela tras un cambio de pronunciación por parte de Google."
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "key": "usage",
+      "icon": "volume-2",
+      "label": {
+        "en": "Google voice",
+        "fr": "Voix Google",
+        "de": "Google-Stimme",
+        "es": "Voz de Google"
+      },
+      "description": {
+        "en": "Characters of the month against the limit, clips of the day, the cache and the last error.",
+        "fr": "Caractères du mois face au plafond, clips du jour, le cache et la dernière erreur.",
+        "de": "Zeichen des Monats im Vergleich zum Limit, Clips des Tages, der Cache und der letzte Fehler.",
+        "es": "Caracteres del mes frente al límite, clips del día, la caché y el último error."
+      }
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "error",
+      "label": {
+        "en": "Google voice: speech fails",
+        "fr": "Voix Google : la parole est en erreur",
+        "de": "Google-Stimme: Sprachausgabe schlägt fehl",
+        "es": "Voz de Google: el habla falla"
+      },
+      "description": {
+        "en": "Google stopped speaking: key refused, API or billing not enabled, voice unknown, API unreachable. Once per failure, not for every clip.",
+        "fr": "Google ne parle plus : clé refusée, API ou facturation non activée, voix inconnue, API injoignable. Une fois par panne, pas à chaque clip.",
+        "de": "Google spricht nicht mehr: Schlüssel abgelehnt, API oder Abrechnung nicht aktiviert, Stimme unbekannt, API nicht erreichbar. Einmal pro Ausfall, nicht bei jedem Clip.",
+        "es": "Google ya no habla: clave rechazada, API o facturación no habilitada, voz desconocida, API inaccesible. Una vez por fallo, no en cada clip."
+      },
+      "fields": [
+        {
+          "key": "kind",
+          "type": "select",
+          "required": false,
+          "label": {
+            "en": "Only for",
+            "fr": "Seulement pour",
+            "de": "Nur bei",
+            "es": "Solo para"
+          },
+          "description": {
+            "en": "Leave empty for any failure.",
+            "fr": "Laissez vide pour toute panne.",
+            "de": "Leer lassen für jeden Ausfall.",
+            "es": "Déjelo vacío para cualquier fallo."
+          },
+          "options": [
+            {
+              "value": "auth",
+              "label": {
+                "en": "Key refused",
+                "fr": "Clé refusée",
+                "de": "Schlüssel abgelehnt",
+                "es": "Clave rechazada"
+              }
+            },
+            {
+              "value": "disabled",
+              "label": {
+                "en": "API not enabled",
+                "fr": "API non activée",
+                "de": "API nicht aktiviert",
+                "es": "API no habilitada"
+              }
+            },
+            {
+              "value": "billing",
+              "label": {
+                "en": "Billing not enabled",
+                "fr": "Facturation non activée",
+                "de": "Abrechnung nicht aktiviert",
+                "es": "Facturación no habilitada"
+              }
+            },
+            {
+              "value": "voice",
+              "label": {
+                "en": "Voice unknown",
+                "fr": "Voix inconnue",
+                "de": "Stimme unbekannt",
+                "es": "Voz desconocida"
+              }
+            },
+            {
+              "value": "rate_limit",
+              "label": {
+                "en": "Rate limit",
+                "fr": "Limite de requêtes",
+                "de": "Anfragelimit",
+                "es": "Límite de solicitudes"
+              }
+            },
+            {
+              "value": "unreachable",
+              "label": {
+                "en": "API unreachable",
+                "fr": "API injoignable",
+                "de": "API nicht erreichbar",
+                "es": "API inaccesible"
+              }
+            },
+            {
+              "value": "timeout",
+              "label": {
+                "en": "Too slow",
+                "fr": "Trop lent",
+                "de": "Zu langsam",
+                "es": "Demasiado lento"
+              }
+            },
+            {
+              "value": "server",
+              "label": {
+                "en": "Google error",
+                "fr": "Erreur Google",
+                "de": "Google-Fehler",
+                "es": "Error de Google"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "kind",
+          "type": "string",
+          "label": {
+            "en": "Kind of failure",
+            "fr": "Type de panne",
+            "de": "Art des Ausfalls",
+            "es": "Tipo de fallo"
+          }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": {
+            "en": "Error message",
+            "fr": "Message d’erreur",
+            "de": "Fehlermeldung",
+            "es": "Mensaje de error"
+          }
+        },
+        {
+          "key": "voice",
+          "type": "string",
+          "label": {
+            "en": "Voice",
+            "fr": "Voix",
+            "de": "Stimme",
+            "es": "Voz"
+          }
+        },
+        {
+          "key": "language",
+          "type": "string",
+          "label": {
+            "en": "Language",
+            "fr": "Langue",
+            "de": "Sprache",
+            "es": "Idioma"
+          }
+        }
+      ]
+    },
+    {
+      "key": "recovered",
+      "label": {
+        "en": "Google voice: speaks again",
+        "fr": "Voix Google : parle de nouveau",
+        "de": "Google-Stimme: spricht wieder",
+        "es": "Voz de Google: vuelve a hablar"
+      },
+      "description": {
+        "en": "The first clip after a failure.",
+        "fr": "Le premier clip après une panne.",
+        "de": "Der erste Clip nach einem Ausfall.",
+        "es": "El primer clip tras un fallo."
+      },
+      "variables": [
+        {
+          "key": "down_minutes",
+          "type": "number",
+          "label": {
+            "en": "Minutes of failure",
+            "fr": "Minutes de panne",
+            "de": "Minuten des Ausfalls",
+            "es": "Minutos de fallo"
+          }
+        }
+      ]
+    },
+    {
+      "key": "monthly_limit",
+      "label": {
+        "en": "Google voice: monthly limit",
+        "fr": "Voix Google : plafond du mois",
+        "de": "Google-Stimme: Monatslimit",
+        "es": "Voz de Google: límite del mes"
+      },
+      "description": {
+        "en": "The characters of the month reach 80 % of the limit, then the limit itself (clips refused until the next month). Once per level and month.",
+        "fr": "Les caractères du mois atteignent 80 % du plafond, puis le plafond lui-même (clips refusés jusqu’au mois suivant). Une fois par niveau et par mois.",
+        "de": "Die Zeichen des Monats erreichen 80 % des Limits, dann das Limit selbst (Clips bis zum Folgemonat abgelehnt). Einmal pro Stufe und Monat.",
+        "es": "Los caracteres del mes alcanzan el 80 % del límite y luego el propio límite (clips rechazados hasta el mes siguiente). Una vez por nivel y mes."
+      },
+      "fields": [
+        {
+          "key": "level",
+          "type": "select",
+          "required": false,
+          "label": {
+            "en": "Only for",
+            "fr": "Seulement pour",
+            "de": "Nur bei",
+            "es": "Solo para"
+          },
+          "description": {
+            "en": "Leave empty for both.",
+            "fr": "Laissez vide pour les deux.",
+            "de": "Leer lassen für beide.",
+            "es": "Déjelo vacío para ambos."
+          },
+          "options": [
+            {
+              "value": "warning",
+              "label": {
+                "en": "80 % of the limit",
+                "fr": "80 % du plafond",
+                "de": "80 % des Limits",
+                "es": "80 % del límite"
+              }
+            },
+            {
+              "value": "reached",
+              "label": {
+                "en": "Limit reached",
+                "fr": "Plafond atteint",
+                "de": "Limit erreicht",
+                "es": "Límite alcanzado"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "level",
+          "type": "string",
+          "label": {
+            "en": "Level",
+            "fr": "Niveau",
+            "de": "Stufe",
+            "es": "Nivel"
+          }
+        },
+        {
+          "key": "used",
+          "type": "number",
+          "label": {
+            "en": "Characters used",
+            "fr": "Caractères utilisés",
+            "de": "Verbrauchte Zeichen",
+            "es": "Caracteres usados"
+          }
+        },
+        {
+          "key": "limit",
+          "type": "number",
+          "label": {
+            "en": "Monthly limit",
+            "fr": "Plafond mensuel",
+            "de": "Monatslimit",
+            "es": "Límite mensual"
+          }
+        },
+        {
+          "key": "percent",
+          "type": "number",
+          "label": {
+            "en": "Percentage used",
+            "fr": "Pourcentage utilisé",
+            "de": "Verbrauchter Anteil",
+            "es": "Porcentaje usado"
+          }
+        },
+        {
+          "key": "month",
+          "type": "string",
+          "label": {
+            "en": "Month",
+            "fr": "Mois",
+            "de": "Monat",
+            "es": "Mes"
+          }
+        }
+      ]
+    }
+  ]
+}

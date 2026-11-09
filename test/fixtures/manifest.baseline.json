@@ -1,0 +1,176 @@
+{
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "options": []
+    },
+    {
+      "key": "costs",
+      "type": "section",
+      "options": []
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "options": []
+    },
+    {
+      "key": "voice_section",
+      "type": "section",
+      "options": []
+    },
+    {
+      "key": "family",
+      "type": "select",
+      "options": ["chirp3-hd", "neural2", "wavenet", "standard", "studio", "polyglot"]
+    },
+    {
+      "key": "gender",
+      "type": "select",
+      "options": ["female", "male"]
+    },
+    {
+      "key": "voices",
+      "type": "string",
+      "options": []
+    },
+    {
+      "key": "fallback_language",
+      "type": "select",
+      "options": ["en", "fr", "de", "es", "it", "nl", "pt"]
+    },
+    {
+      "key": "sound_section",
+      "type": "section",
+      "options": []
+    },
+    {
+      "key": "speaking_rate",
+      "type": "select",
+      "options": ["0.75", "0.85", "0.9", "1", "1.1", "1.15", "1.25", "1.5"]
+    },
+    {
+      "key": "pitch",
+      "type": "select",
+      "options": ["-6", "-4", "-2", "0", "2", "4", "6"]
+    },
+    {
+      "key": "volume_gain_db",
+      "type": "select",
+      "options": ["-6", "-3", "0", "3", "6"]
+    },
+    {
+      "key": "effects_profile",
+      "type": "select",
+      "options": [
+        "none",
+        "small-bluetooth-speaker-class-device",
+        "medium-bluetooth-speaker-class-device",
+        "large-home-entertainment-class-device",
+        "headphone-class-device",
+        "handset-class-device",
+        "wearable-class-device",
+        "large-automotive-class-device",
+        "telephony-class-application"
+      ]
+    },
+    {
+      "key": "audio_format",
+      "type": "select",
+      "options": ["mp3", "ogg", "wav"]
+    },
+    {
+      "key": "monthly_limit",
+      "type": "number",
+      "options": []
+    }
+  ],
+  "actions": ["test_voice", "list_voices", "clear_cache"],
+  "widgets": [
+    {
+      "key": "usage",
+      "settings": []
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "error",
+      "fields": [
+        {
+          "key": "kind",
+          "options": [
+            "auth",
+            "disabled",
+            "billing",
+            "voice",
+            "rate_limit",
+            "unreachable",
+            "timeout",
+            "server"
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "kind",
+          "type": "string"
+        },
+        {
+          "key": "message",
+          "type": "string"
+        },
+        {
+          "key": "voice",
+          "type": "string"
+        },
+        {
+          "key": "language",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "key": "recovered",
+      "fields": [],
+      "variables": [
+        {
+          "key": "down_minutes",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "key": "monthly_limit",
+      "fields": [
+        {
+          "key": "level",
+          "options": ["warning", "reached"]
+        }
+      ],
+      "variables": [
+        {
+          "key": "level",
+          "type": "string"
+        },
+        {
+          "key": "used",
+          "type": "number"
+        },
+        {
+          "key": "limit",
+          "type": "number"
+        },
+        {
+          "key": "percent",
+          "type": "number"
+        },
+        {
+          "key": "month",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "scene_actions": []
+}
